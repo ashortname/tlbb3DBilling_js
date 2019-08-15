@@ -1,0 +1,6 @@
+﻿Id	Desc	Name	Ip	Port	State	Type	GroupName				
+INT	STRING	STRING	STRING	INT	INT	INT	STRING				
+#预留											
+#	描述	服务器名	IP	端口	状态 状态 顺畅0 拥挤1 火爆2 维护3	类型 不推荐0 推荐1	组名				
+19900	龙门客栈	龙门1区	192.168.1.132	2231	2	1	龙门客栈
+19901	和平饭店	和平1区	192.168.1.132	2241	2	1	和平饭店

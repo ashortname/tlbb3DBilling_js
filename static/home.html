@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天龙3D充值后台</title>
+<style type="text/css">
+<!--
+.style1 {font-size: 24px}
+-->
+</style>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GM</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="../js/jquery-3.4.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>	
+</head>
+<body onload="loadOpts()">
+<div class="text-center col-md-4 center-block">
+<h1 class="style1">天龙3D角色充值</h1>
+	 <form id="form" name="form" method="post" action="/gm/logout">
+	 <button type="submit" class="btn btn-info btn-block" name="sub" value="logout">注销登录</button><br>
+	 </form>
+     <form id="form1" name="form1" method="post" action="/gm/api">
+		<div class="form-group">
+			<input type="text" class="form-control" id="uid" name="uid" placeholder="请输入角色ID" >
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" id="username" name="username" placeholder="请输入角色名" >
+		</div>
+		<div class="form-group">
+			<p id="loadTips"></p>
+         <select class="form-control selectpicker" id="item" name="item" value="" onchange="ChangeS()">
+		  </select>
+	    </div> 
+			<input type="text" placeholder="数量" class="form-control" id="num" name="num" value="1" maxlength="9">
+		<p></p>
+		<div class="form-group">
+		 <button type="submit" class="btn btn-info btn-block" name="sub" value="pay">充值元宝</button>
+		 <button type="submit" class="btn btn-info btn-block" name="sub" value="jb">充值金币</button>
+		 <button type="submit" class="btn btn-info btn-block" name="sub" value="by">充值绑元</button>
+		 <button type="submit" class="btn btn-info btn-block" name="sub" value="mail">发送物品</button>
+		 <p class="admin_copyright"> 说明：后台除元宝充值外，其它均须下线充值/发送，10秒以上再上线游戏！</p>
+	    </div>			
+     </form>	 
+	<p>搜索框</p>
+	 <input type="text" placeholder="搜索" class="form-control" id="search1" name="search1" value="1" maxlength="9"><br>
+	 <div>
+		<p>物品描述</p>
+		<p id="desc"></p>
+	</div><br>
+	<button onclick="_search()" class="btn btn-info btn-block">搜索</button><br>
+	 <button onclick="btn_show()" class="btn btn-info btn-block">重置</button>
+
+<div class="form-group">
+ <p class="admin_copyright"> &copy; 2019</p> </div>
+</body>
+<script type="text/javascript">
+var intro_Name = document.getElementsByClassName("optionss");
+var selectOpt = document.getElementById("item");
+var searchText = document.getElementById("search1");
+
+function _search()
+{
+	var stext = searchText.value;
+	var selectI = -1;
+	for(var i = 0; i < intro_Name.length; i++)
+	{
+		var inValue = intro_Name[i].text;
+		if(inValue.search(stext) == -1)
+		{
+			intro_Name[i].style.display = 'none';
+			if(selectI == -1)
+				selectI = i;
+		}else
+		{
+			intro_Name[i].style.display = '';
+		}			
+	}
+	selectOpt.selectIndex = selectI;
+}
+
+function btn_show()
+{
+	for(var i = 0; i < intro_Name.length; i++)
+	{
+		intro_Name[i].style.display = '';
+	}
+	searchText.value = "";
+}
+
+function ChangeS()
+{	
+	var index = selectOpt.options.selectedIndex;	
+	var txt = intro_Name[index].id;
+	var pp = document.getElementById("desc");
+	pp.innerText = txt;
+}
+
+function loadOpts()
+{
+	$("loadTips").text('正在加载列表...');
+	$.ajax({
+		url: '/getlist',
+        type: 'get',
+        dataType: 'json',
+        success: function(datas){
+			for(var i = 0; i < datas.length; i++)
+				$("#item").append(datas[i]);
+			$("loadTips").text('');
+        }
+	})
+}
+</script>
+</html>

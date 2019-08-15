@@ -1,0 +1,29 @@
+{
+  "name": "tlbb3d",
+  "version": "1.0.0",
+  "description": "tlbb3D",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "null"
+  },
+  "keywords": [
+    "tlbb"
+  ],
+  "author": "j",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "memcached": "^2.2.2",
+    "moment": "^2.24.0",
+    "mysql": "^2.17.1",
+    "readline": "^1.3.0"
+  }
+}
